@@ -1,0 +1,15 @@
+class Solution {
+    public int[] shuffle(int[] nums, int n) {
+      
+        int[] a= new int[2*n];
+
+        
+        for( int i=0; i<n;  i++ )
+        {
+            a[2* i]=nums[i]; //even index
+            a[2*i+1]= nums[n+i]; //odd index
+           
+        }
+        return a;
+    }
+}
