@@ -1,4 +1,62 @@
-//BRUTE:
+//OPTIMUM: Moving the Elements
+class Solution {
+    public void moveZeroes(int[] nums) 
+    {
+        int n= nums.length;
+        int j=0;
+
+        //step 1: give j the index of the first zero of the array
+        for(int i=0; i<n; i++)
+        {
+            if(nums[i]==0)
+            {
+                j=i; // the first zero index in the array
+                break; //IMP STATEMENT o/w j will store the last value of the zeroth index
+            }
+        }
+
+        //step 2: 
+
+       int i= j+1;
+       while(i<n)
+        {
+            if(nums[i]!=0 && nums[j]==0)
+            {
+                swap(nums, i, j);
+                j++;
+                i++;
+                continue;
+            }
+            i++;
+        }
+    }
+
+        static void swap(int a[], int f, int s)
+        {
+            int t=0;
+            t= a[f];
+            a[f]= a[s];
+            a[s]= t;
+        }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*//BRUTE: making new list, copying, then adding zeros. O(2n), extra space: O(n)-> when no zero in the array, os the list is made of n size.
 class Solution {
     public void moveZeroes(int[] nums) 
     {
@@ -28,8 +86,8 @@ class Solution {
                 nums[i]=0;
             }
     }
-}
-
+}*/
+//running!
 
 
 
