@@ -8,7 +8,31 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
- //BRUTE FORCE: 2 BAAR TRAVERSAL
+
+ //OPTIMAL APPROACH: TORTOISE AND HARE APPROACH[SLOW AND FAST PONITERS]
+ class Solution {
+    public ListNode middleNode(ListNode head) {
+
+        ListNode slow= head;
+        ListNode fast= head;
+
+        while(fast!= null && fast.next!= null)
+        {
+            slow= slow.next;
+            fast= fast.next.next;
+        }
+
+        
+    return slow;
+    }
+ }
+
+
+
+
+
+/*
+ //BRUTE FORCE: 2 BAAR TRAVERSAL, DONE
 class Solution {
     public ListNode middleNode(ListNode head) {
 
@@ -35,9 +59,6 @@ class Solution {
                 temp= temp.next;
             }
             return temp;
-        }
-
-
-
-        
+        }    
     }
+    */
