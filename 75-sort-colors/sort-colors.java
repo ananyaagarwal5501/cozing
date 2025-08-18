@@ -21,8 +21,10 @@
     }
 }
 */
-//Better: count all 0, 1 and 2s, then run loop to print all thses
-//TC= 0(N)
+
+/*
+//Better: count all 0, 1 and 2s, then run loop to print all thses, but 2 iterations
+//TC= 0(2N) -----done, just take care of the ith index while refilling the array again
 class Solution { 
     public void sortColors(int[] nums) 
     {
@@ -62,4 +64,43 @@ class Solution {
             nums[i]=2;
         }
     }
+}
+*/
+
+//optimal: DUTCH FLAG ALGO
+class Solution { 
+    public void sortColors(int[] nums) 
+    {
+        int n= nums.length;
+        int low=0;
+        int high=n-1;
+        int mid=0;
+        
+
+       while(mid <=high)
+        {
+            if(nums[mid]==1)
+            {
+                mid++;
+            }
+            else if(nums[mid]==0)
+            {
+                swap(nums, mid, low);
+                mid++;
+                low++;
+            }
+            else
+            {
+                swap(nums, mid, high);
+                high--;
+            }
+        }
+    }
+
+    public void swap(int[] nums, int i, int j) 
+    {
+    int temp = nums[i];
+    nums[i] = nums[j];
+    nums[j] = temp;
+}
 }
