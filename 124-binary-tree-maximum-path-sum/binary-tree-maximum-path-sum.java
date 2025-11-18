@@ -47,27 +47,30 @@
 */
 
 class Solution {
-    int maxSum = Integer.MIN_VALUE;
-
+    
     public int maxPathSum(TreeNode root) {
-        findMaxPath(root);
-        return maxSum;
+        int[] maxSum = new int[1];
+    maxSum[0]= Integer.MIN_VALUE;
+
+        findMaxPath(root, maxSum);
+        return maxSum[0];
     }
 
-    private int findMaxPath(TreeNode node) {
+    private int findMaxPath(TreeNode node, int[] maxSum) {
         if (node == null) return 0;
 
-        // Recursively get max path sum of left & right subtrees
-        int left = Math.max(0, findMaxPath(node.left));
-        int right = Math.max(0, findMaxPath(node.right));
+       
+        int le= Math.max(0, findMaxPath(node.left, maxSum));
+        int re= Math.max(0, findMaxPath(node.right, maxSum));
 
-        // Current node’s best path (including both sides)
-        int currentPath = node.val + left + right;
+              
+        maxSum[0]= Math.max(maxSum[0], le+re+node.val);
+        
 
-        // Update global maxSum if current path is better
-        maxSum = Math.max(maxSum, currentPath);
-
-        // Return max gain to parent (can only go through one side)
-        return node.val + Math.max(left, right);
+        return node.val+ Math.max(le, re);
     }
+    
 }
+
+
+
