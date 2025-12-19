@@ -1,28 +1,37 @@
-class Solution {
+
+
+        class Solution {
     public boolean isBipartite(int[][] graph) {
         int n = graph.length;
-        int[] color = new int[n];  // 0 = uncolored, 1 = red, -1 = blue
 
+        // color[i] = -1 → not colored
+        // color[i] = 0 or 1 → two different sets
+        int[] color = new int[n];
+        Arrays.fill(color, -1);
+
+        // graph may be disconnected
         for (int i = 0; i < n; i++) {
-            if (color[i] == 0) {  // uncolored → new component
-                if (!dfs(graph, color, i, 1))
-                    return false;
-            }
-        }
-        return true;
-    }
+            if (color[i] == -1) {
+                // start BFS
+                Queue<Integer> q = new LinkedList<>();
+                q.add(i);
+                color[i] = 0;
 
-    private boolean dfs(int[][] graph, int[] color, int node, int currColor) {
-        color[node] = currColor;
+                while (!q.isEmpty()) {
+                    int node = q.poll();
 
-        for (int neigh : graph[node]) {
-            if (color[neigh] == 0) {
-                // color neighbor with opposite color
-                if (!dfs(graph, color, neigh, -currColor))
-                    return false;
-            } else if (color[neigh] == currColor) {
-                // conflict: same color as parent node
-                return false;
+                    for (int nei : graph[node]) {
+                        if (color[nei] == -1) {
+                            // color with opposite color
+                            color[nei] = 1 - color[node];
+                            q.add(nei);
+                        } 
+                        // conflict found
+                        else if (color[nei] == color[node]) {
+                            return false;
+                        }
+                    }
+                }
             }
         }
         return true;
