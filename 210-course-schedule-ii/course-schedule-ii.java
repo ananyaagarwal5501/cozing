@@ -1,100 +1,108 @@
-
 class Solution {
-    public int[] findOrder(int numCourses, int[][] prerequisites) {
-        List<List<Integer>> adj = new ArrayList<>();
-        for (int i = 0; i < numCourses; i++) {
+    public int[] findOrder(int numCourses, int[][] prerequisites) 
+    {
+        //topo hai toh yes o/w no: bfs
+        int V= numCourses;
+        //needful
+        Queue<Integer> q= new LinkedList<>();
+
+        int[] indegree= new int[V];
+        //ArrayList<Integer> result= new ArrayList<>();
+        int[] result= new int[V];
+
+        ArrayList<ArrayList<Integer>> adj= new ArrayList<>();
+
+        //creating adj
+        for(int i=0; i<V; i++)
+        {
             adj.add(new ArrayList<>());
         }
 
-        int[] indegree = new int[numCourses];
-
-        // Build graph and indegree
-        for (int[] p : prerequisites) {
-            int course = p[0];
-            int prereq = p[1];
-            adj.get(prereq).add(course);
-            indegree[course]++;
+        //filling the adj
+        for(int[] e: prerequisites)
+        {
+            adj.get(e[1]).add(e[0]);
         }
 
-        Queue<Integer> q = new LinkedList<>();
-
-        // Add all courses with no prerequisites
-        for (int i = 0; i < numCourses; i++) {
-            if (indegree[i] == 0)
-                q.offer(i);
-        }
-
-        int[] order = new int[numCourses];
-        int index = 0;
-
-        // BFS topological sort
-        while (!q.isEmpty()) {
-            int curr = q.poll();
-            order[index++] = curr;
-
-            for (int next : adj.get(curr)) {
-                indegree[next]--;
-                if (indegree[next] == 0) {
-                    q.offer(next);
-                }
+        //Logic start
+        //1. filling indegree
+        for(int i=0; i<V; i++)
+        {
+            for(int it: adj.get(i))
+            {
+                indegree[it]++;
             }
         }
 
-        // If we couldn't include all courses → cycle exists → return empty
-        if (index != numCourses)
-            return new int[0];
-
-        return order;
-    }
-}
-
-
-/*class Solution {
-    public int[] findOrder(int numCourses, int[][] prerequisites) {
-        List<List<Integer>> adj = new ArrayList<>();
-        for (int i = 0; i < numCourses; i++) {
-            adj.add(new ArrayList<>());
+        //2.add to q, if indegree==0
+        for(int i=0; i<V; i++)
+        {
+        if(indegree[i] == 0)
+        {
+            q.add(i);
         }
-
-        int[] indegree = new int[numCourses];
-
-        // Build graph and indegree
-        for (int[] p : prerequisites) {
-            int course = p[0];
-            int prereq = p[1];
-            adj.get(prereq).add(course);
-            indegree[course]++;
         }
+        
 
-        Queue<Integer> q = new LinkedList<>();
+        //remove from q, add to result, decrease the edge, if indegree==0, add to q
+        int i=0;
+        while(!q.isEmpty())
+        {
+            int node= q.peek();
+            q.remove();
 
-        // Add all courses with no prerequisites
-        for (int i = 0; i < numCourses; i++) {
-            if (indegree[i] == 0)
-                q.offer(i);
-        }
+            result[i++]= node;
 
-        int[] order = new int[numCourses];
-        int index = 0;
+            for(int it: adj.get(node))
+            {
+                indegree[it]--;
+            
 
-        // BFS topological sort
-        while (!q.isEmpty()) {
-            int curr = q.poll();
-            order[index++] = curr;
-
-            for (int next : adj.get(curr)) {
-                indegree[next]--;
-                if (indegree[next] == 0) {
-                    q.offer(next);
-                }
+            
+            if(indegree[it] == 0)
+            {
+                q.add(it);
+            }
             }
         }
 
-        // If we couldn't include all courses → cycle exists → return empty
-        if (index != numCourses)
-            return new int[0];
+        if(i == V)
+        {
+            return result;
+        }
 
-        return order;
+        return new int[0];
+        }
     }
-}
-*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
