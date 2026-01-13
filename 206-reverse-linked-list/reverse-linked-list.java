@@ -34,7 +34,8 @@ class Solution {
     }
 }*/
 
-//optimal: reversal of link of node [cannot use an external data structure]
+
+//optimal: reversal of link of node [cannot use an external data structure], done
    class Solution {
     public ListNode reverseList(ListNode head)
      {
@@ -54,4 +55,6 @@ class Solution {
     return prev;
      }
    }
+
+
 
