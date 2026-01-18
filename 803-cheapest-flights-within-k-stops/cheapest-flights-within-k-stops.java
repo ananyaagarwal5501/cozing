@@ -28,7 +28,7 @@ class Solution {
             int v= edge[1];
             int w= edge[2];
 
-            adj.get(u).add(new Pair(v, 0, w));
+            adj.get(u).add(new Pair(v, 0, w)); //stop = 0 is just a dummy value here.
         }
 
         //fetch source. see its adj padosiies, cgeck for value of k for it, 
