@@ -1,5 +1,37 @@
 class Solution {
-    public int[] rearrangeArray(int[] nums) {
+    public int[] rearrangeArray(int[] nums) 
+    {
+        int n= nums.length; //even n/2 odd and n/2 even 
+
+        int[] ans= new int[n];
+        int posindex= 0;
+        int negindex= 1;
+
+        for(int i=0; i<n; i++)
+        {
+            if(nums[i] >= 0)
+            {
+                ans[posindex]= nums[i];
+                posindex += 2;
+            }
+            else
+            {
+                ans[negindex]= nums[i];
+                negindex += 2;
+            }
+        }
+
+        return ans;
+    }
+}
+
+
+
+
+
+
+
+/*
         int n = nums.length;
         int[] pos = new int[n / 2];
         int[] neg = new int[n / 2];
@@ -24,4 +56,4 @@ class Solution {
 
         return ans;
     }
-}
+}*/
