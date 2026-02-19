@@ -28,7 +28,7 @@ class Solution {
         }
         right--;
 
-        if(top <= bottom)
+        if(top <= bottom) //EDGE: to check if the other row is still there, or a single row
         {
         //3. left direction
         for(int i=right; i>=left; i--)
@@ -38,7 +38,7 @@ class Solution {
          bottom--;
         }
 
-        if(left<= right)
+        if(left<= right) //EDGE 
         {
         //4. up direction
         for(int i=bottom; i>=top; i--)
