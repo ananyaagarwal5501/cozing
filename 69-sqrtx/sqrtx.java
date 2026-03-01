@@ -3,8 +3,9 @@ class Solution {
     {
         //range for the ansewwer, bs will run in the range
         int l= 1;
-        int e= x;
+        int e= x/2;
 
+        if(x<2) return x;
         while(l<=e)
         {
             //largest m such that m*m ≤ x
