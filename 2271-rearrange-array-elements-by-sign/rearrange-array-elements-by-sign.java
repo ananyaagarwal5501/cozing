@@ -1,3 +1,5 @@
+//optimal, tc= 0(n), sc=0(n)
+//playing with the indexes, rather than making new arrays.
 class Solution {
     public int[] rearrangeArray(int[] nums) 
     {
@@ -31,6 +33,22 @@ class Solution {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//brute, tc=(2n), sc=0(n), alag alag pos and neg array bana ke karna
 /*
         int n = nums.length;
         int[] pos = new int[n / 2];
