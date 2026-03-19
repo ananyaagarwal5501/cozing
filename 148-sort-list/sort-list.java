@@ -8,38 +8,38 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
- //Data ke base pe sort 
- //BRUTE: EK ARRAYLIST BNA KE THEN REPLACE THE NODES DATA 
 class Solution {
     public ListNode sortList(ListNode head) 
     {
-        ArrayList<Integer> arr= new ArrayList<>();
         ListNode temp= head;
-       
+        int c=0;
+        if(head == null || head.next == null)
+        {
+            return head;
+        }
+
+        ArrayList<Integer> arr =  new ArrayList<>();
 
         while(temp!= null)
         {
-         
-                arr.add(temp.val);
-           
-            temp=temp.next;
+            c++;
+            arr.add(temp.val);
+            temp= temp.next;
+
         }
 
-            Collections.sort(arr);
+        Collections.sort(arr);
 
-            //again replacing the elements into the nodes
-            int i=0;
-            temp=head;
-            while(temp!=null)
-            {
-                temp.val= arr.get(i);
-                i++;
-                temp=temp.next;
-            }
+        ListNode nhead = new ListNode(arr.get(0));
+        ListNode mover= nhead;
 
-            return head;
+        for(int i=1; i<c; i++)
+        {
+            ListNode ntemp= new ListNode(arr.get(i));
+            mover.next= ntemp;
+            mover= ntemp;
+        }
 
-        
-        
+        return nhead;
     }
 }
