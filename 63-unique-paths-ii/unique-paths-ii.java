@@ -8,7 +8,7 @@ class Solution {
         int dp[][]= new int[m][n];
 
         //base case
-        if(grid[0][0] == 1) return 0;
+        //if(grid[0][0] == 1) return 0;
         //if(i<0 || j<0) return 0;
         //if(grid[i][j] == 1) dp[i][j] = 0;
         for(int i=0; i<m; i++) 
