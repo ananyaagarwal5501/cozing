@@ -3,16 +3,48 @@ class Solution {
     {
         int m= grid.length;
         int n= grid[0].length;
+
+        int[] prev= new int[n];
+
+        for(int i=0; i<m; i++)
+        {
+            int[] curr= new int[n];
+            for(int j=0; j<n; j++)
+            {
+                if(i == 0 && j == 0) {
+                    curr[j] = grid[i][j];
+                } 
+                else {
+                   int up = (i > 0) ? prev[j] : (int)1e9;
+                   int left = (j > 0) ? curr[j-1] : (int)1e9;
+
+                    curr[j] = grid[i][j] + Math.min(up, left);
+            }
+        }
+        prev= curr;
+        }
+        return prev[n-1];
+    
+    }
+}
+
+
+
+/*class Solution {
+    public int minPathSum(int[][] grid) 
+    {
+        int m= grid.length;
+        int n= grid[0].length;
         int[][] dp= new int[m][n];
 
          dp[0][0]= grid[0][0];
          //first row
-         for(int j= 1; j<n; j++)
+         for(int j= 0; j<n; j++)
          {
             dp[0][j] = grid[0][j] + dp[0][j-1];
          }
          //first col
-         for(int i=1; i<m; i++)
+         for(int i=0; i<m; i++)
          {
             dp[i][0]= grid[i][0] + dp[i-1][0];
          }
@@ -30,7 +62,7 @@ class Solution {
     }
 }
 
-
+*/
 /*class Solution {
     public int minPathSum(int[][] grid) 
     {
