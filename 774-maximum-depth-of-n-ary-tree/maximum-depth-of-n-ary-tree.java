@@ -16,7 +16,22 @@ class Node {
     }
 };
 */
+class Solution {
+    public int maxDepth(Node root) 
+    {
+        if(root == null) return 0;
 
+        int max=0;
+        for(Node child: root.children)
+        {
+        int childdepth= maxDepth(child);
+        max= Math.max(childdepth, max);
+        }
+       return 1 + max;
+    }
+}
+
+/*
 class Solution {
     public int maxDepth(Node root) 
     {
@@ -42,4 +57,4 @@ class Solution {
         }  
         return depth;      
     }
-}
+}*/
