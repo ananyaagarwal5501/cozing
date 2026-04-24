@@ -3,38 +3,37 @@ class Solution {
     {
         int n= coins.length;
         int[][] dp= new int[n][amount + 1];
-        for(int i=0; i<n; i++)
-        {
-            Arrays.fill(dp[i], -1);
-        }
-        int ans= f(coins, n-1, amount, dp);
-        return (ans >= (int)1e9) ?  -1 : ans;
-    }
-
-    int f(int[] coins, int ind, int sum, int[][] dp )
-    {
+        
         //base case
-        if(sum == 0) return 0;
-        if(ind== 0) 
-        {
-            if(sum % coins[ind] == 0)
+          for(int sum=0; sum<= amount; sum++)
             {
-                return sum / coins[ind];
+                if(sum % coins[0] == 0)
+                {
+                 dp[0][sum]= sum/coins[0];
+                }
+                else
+                {
+                  dp[0][sum]= (int)1e9;
+                }
             }
-            return (int)1e9;
-        }
+        
 
-        if(dp[ind][sum] != -1) return dp[ind][sum];
-         //stuff
-         int ntake= f(coins, ind-1, sum, dp);
-         int take=(int)1e9;
-
-        if(coins[ind] <= sum)
+        //for loop
+        for(int ind=1; ind<n; ind++)
         {
-         take= 1 + f(coins, ind, sum- coins[ind], dp);
-        }
+            for(int sum=1; sum<= amount; sum++)
+            {
+                int ntake= dp[ ind-1] [sum];
+                int take=(int)1e9;
 
-         //min
-         return dp[ind][sum]= Math.min(take, ntake);
+                 if(coins[ind] <= sum)
+                 {
+                  take= 1 + dp[ ind] [sum- coins[ind]];
+                 }
+
+                dp[ind][sum] = Math.min(take, ntake);
+            }
+        }
+        return dp[n-1][amount] >= (int)1e9 ? -1 : dp[n-1][amount] ;
     }
 }
