@@ -11,25 +11,32 @@ class Solution {
         if(Math.abs(target) > ts) return 0;
         if(k%2 != 0) return 0;
         if(k < 0) return 0;
-        return f(nums, n-1, k/2);
-    }
-
-     int f(int[] nums, int ind, int k)
-    {
+        k= k/2;
+        int[][] dp= new int[n][k+1];
+       
         //base cases
         //if(k ==0 ) return 1;
-        if(ind == 0)
-        {
-            if(nums[ind] == 0 && k == nums[0]) return 2;
-            if(k == 0 || nums[0] == k) return 1;
-            return 0;
+        if (nums[0] == 0) {
+            dp[0][0] = 2; // take or not take
+        } else {
+            dp[0][0] = 1; // not take
+            if (nums[0] <= k)
+                dp[0][nums[0]] = 1; // take
         }
 
-        //stuff
-        int ntake= f(nums, ind-1, k);
-        int take= 0;
-        if(nums[ind] <= k) take=  f(nums, ind-1, k- nums[ind]);
 
-        return take + ntake;
+        for(int ind= 1; ind<n; ind++)
+        {
+            for(int sum=0; sum<= k; sum++)
+            {
+                //stuff
+              int ntake= dp[ind-1][sum];
+              int take= 0;
+              if(nums[ind] <= sum)  take = dp[ind-1][sum- nums[ind]];
+              dp[ind][sum]= take + ntake;
+            }
+        }
+        
+        return dp[n-1][k];
     }
 }
