@@ -3,7 +3,7 @@ class Solution {
     {
         int n= coins.length;
         int[] prev= new int[amount+1];
-        int[] curr= new int[amount+1];
+        //int[] curr= new int[amount+1];
         //int[][] dp= new int[n][amount+1];
         
         //base case
@@ -28,11 +28,11 @@ class Solution {
                 int take=0;
                 if(coins[ind]<= tar)
                 {
-                 take= curr[tar- coins[ind]];
+                 take= prev[tar- coins[ind]];
                 }
-                curr[tar]= take + ntake;
+                prev[tar]= take + ntake;
             }
-            prev= curr;
+           // prev= curr;
         }
         
 
