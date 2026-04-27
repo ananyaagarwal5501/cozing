@@ -6,26 +6,36 @@ class Solution {
         char[] c1= text1.toCharArray();
         char[] c2= text2.toCharArray();
 
-        int[][] dp= new int[n][m];
+        int[][] dp= new int[n+1][m+1];
+
+        //base case: Index Shifting
+        //if(ind1 == 0 || ind2 == 0) return 0;
+        for(int j=0; j<m; j++)
+        {
+            dp[0][j] = 0;
+        }
         for(int i=0; i<n; i++)
         {
-            Arrays.fill(dp[i], -1);
+            dp[i][0] = 0;
         }
 
-        return f(c1, c2, n-1, m-1, dp);
-    }
-    int f(char[] c1, char[] c2, int ind1, int ind2, int[][] dp)
-    {
-        //base case
-        if(ind1 < 0 || ind2 < 0) return 0;
-
-        if(dp[ind1][ind2] != -1) return dp[ind1][ind2];
-        if(c1[ind1] == c2[ind2])
+        //if(dp[ind1][ind2] != -1) return dp[ind1][ind2];
+        for(int ind1=1; ind1<=n; ind1++)
         {
-        return dp[ind1][ind2]= 1+ f(c1, c2, ind1-1, ind2-1, dp);
+            for(int ind2=1; ind2<=m; ind2++)
+            {
+                 if(c1[ind1-1] == c2[ind2-1])
+                 {
+                  dp[ind1][ind2]= 1+ dp[ind1-1][ind2-1];
+                 }
+                 else
+                  {
+                  dp[ind1][ind2]= 0+ Math.max(dp[ind1-1][ind2], dp[ind1][ind2-1]);
+                  }
+
+            }
         }
-        else
-        return dp[ind1][ind2]= 0+ Math.max(f(c1, c2, ind1-1, ind2, dp), f(c1, c2, ind1, ind2-1, dp));
-        
+       
+        return dp[n][m];
     }
 }
