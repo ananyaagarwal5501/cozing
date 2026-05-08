@@ -18,20 +18,14 @@ class Solution {
             s++;
             }
 
-            else if(height[s]>height[e])
-            {
-            h= Math.min(height[s] , height[e]);
-            v= h*(e-s);
-            max= Math.max(v, max);
-            e--;
-            }
+            
 
             else
             {
             h= Math.min(height[s] , height[e]);
             v= h*(e-s);
             max= Math.max(v, max);
-                s++;
+                e--;
             }
         }
         return max;
